@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:meapp/const/to_do_view.dart';
-import 'package:meapp/models/to_do_model.dart';
+import 'package:meapp/view_model/to_do_model.dart';
 import 'package:provider/provider.dart';
 
 class TODOPAGE extends StatefulWidget {
