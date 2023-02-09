@@ -17,9 +17,9 @@ class GoalStorageAdapter extends TypeAdapter<GoalStorage> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return GoalStorage(
-      fields[0] as String,
-      fields[2] as DateTime,
-      fields[1] as String,
+      title: fields[0] as String,
+      deadline: fields[2] as DateTime,
+      description: fields[1] as String,
     );
   }
 

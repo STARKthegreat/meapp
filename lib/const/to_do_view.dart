@@ -35,12 +35,15 @@ class _TODOVIEWState extends State<TODOVIEW> {
       ),
       title: Text(widget.title),
       subtitle: Text(widget.description),
-      trailing: Text(widget.deadline.toString()),
+      trailing: Text('${widget.deadline}'),
       onTap: () => Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) =>
-              TodoDescription(description: widget.description),
+          builder: (context) => TodoDescription(
+            title: widget.title,
+            description: widget.description,
+            deadline: widget.deadline,
+          ),
         ),
       ),
     );

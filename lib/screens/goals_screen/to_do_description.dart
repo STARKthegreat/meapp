@@ -1,31 +1,50 @@
 import 'package:flutter/material.dart';
+import 'package:meapp/const/to_do_view.dart';
 import 'package:meapp/view_model/to_do_model.dart';
 import 'package:provider/provider.dart';
 
 class TodoDescription extends StatefulWidget {
-  final String? title;
+  final String title;
   final String description;
-  const TodoDescription({super.key, required this.description, this.title});
+  final DateTime deadline;
+  const TodoDescription(
+      {super.key,
+      required this.description,
+      required this.title,
+      required this.deadline});
 
   @override
   State<TodoDescription> createState() => _TodoDescriptionState();
 }
 
 class _TodoDescriptionState extends State<TodoDescription> {
+  DateTime subDeadline = DateTime.now();
   @override
   Widget build(BuildContext context) {
+    final goalProvider = Provider.of<TaskProvider>(context);
+    goalProvider.fetchSubTask();
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title!),
+        title: Text(widget.title),
       ),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const Text('Description:'), //title fomart
           Text(widget.description),
-          const Text('Deadline; You have this much time remaining'),
+          Text('Deadline: ${DateTime.now().difference(widget.deadline)}'),
           const Text('Subtasks:'), //Title format
+          Expanded(
+            child: ListView.builder(
+              shrinkWrap: true,
+              itemCount: goalProvider.mySubGoals.length,
+              itemBuilder: (context, index) => TODOVIEW(
+                  title: goalProvider.mySubGoals[index].title,
+                  description: goalProvider.mySubGoals[index].description,
+                  deadline: goalProvider.mySubGoals[index].deadline),
+            ),
+          ),
           Center(
             child: IconButton(
               icon: const Icon(
@@ -41,14 +60,22 @@ class _TodoDescriptionState extends State<TodoDescription> {
     );
   }
 
+  Future<DateTime?> pickDate() => showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(1900),
+      lastDate: DateTime(2100));
+
+  Future<TimeOfDay?> pickTime() =>
+      showTimePicker(context: context, initialTime: TimeOfDay.now());
   openDialog() => showDialog(
         context: context,
         builder: (context) {
           final goalProvider = Provider.of<TaskProvider>(context);
-          TextEditingController goalTitleController = TextEditingController();
-          TextEditingController goalDescriptionController =
+          TextEditingController subGoalTitleController =
               TextEditingController();
-          TextEditingController deadlineController = TextEditingController();
+          TextEditingController subGoalDescriptionController =
+              TextEditingController();
           return AlertDialog(
             title: const Text('ADD goal'),
             content: Column(
@@ -56,23 +83,34 @@ class _TodoDescriptionState extends State<TodoDescription> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 TextFormField(
-                  controller: goalTitleController,
+                  controller: subGoalTitleController,
                   decoration: const InputDecoration(
                     hintText: 'goal Title',
                   ),
                 ),
                 TextFormField(
-                  controller: goalDescriptionController,
+                  controller: subGoalDescriptionController,
                   decoration: const InputDecoration(
                     hintText: 'goal Description',
                   ),
                 ),
-                TextFormField(
-                  controller: deadlineController,
-                  decoration: const InputDecoration(
-                    hintText: 'goal Description',
-                  ),
-                )
+                Text(
+                    '${subDeadline.year}/${subDeadline.month}/${subDeadline.day}   ${subDeadline.hour}:${subDeadline.minute}'),
+                ElevatedButton(
+                  onPressed: () async {
+                    DateTime? date = await pickDate();
+                    if (date == null) return;
+                    TimeOfDay? time = await pickTime();
+                    if (time == null) return;
+
+                    final deadline = DateTime(date.year, date.month, date.day,
+                        time.hour, time.minute);
+                    setState(() {
+                      subDeadline = deadline;
+                    });
+                  },
+                  child: const Text('Pick a Deadline'),
+                ),
               ],
             ),
             actions: [
@@ -81,11 +119,13 @@ class _TodoDescriptionState extends State<TodoDescription> {
                   TextButton(
                       onPressed: () {
                         //Add a goal
-                        goalProvider.myTaskTitle
-                            .add(goalTitleController.text.trim());
-                        goalProvider.myTaskDescription
-                            .add(goalDescriptionController.text.trim());
+                        goalProvider.storeSubGoals(
+                            description:
+                                subGoalDescriptionController.text.trim(),
+                            title: subGoalTitleController.text.trim(),
+                            deadline: subDeadline);
                         //CLOSE AFTER
+                        Navigator.pop(context);
                         //Latest shown on top
                         //Upload Feature => close after upload, save photo somewhere,
                         //Perform CRUD operation on goal.
