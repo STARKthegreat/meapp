@@ -36,7 +36,7 @@ class _TodoDescriptionState extends State<TodoDescription> {
           Text(widget.description),
           Text('Deadline: ${DateTime.now().difference(widget.deadline)}'),
           const Text('Subtasks:'), //Title format
-          Expanded(
+          Flexible(
             child: ListView.builder(
               shrinkWrap: true,
               itemCount: goalProvider.mySubGoals.length,
