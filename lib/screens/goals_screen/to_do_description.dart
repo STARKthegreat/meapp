@@ -22,7 +22,7 @@ class _TodoDescriptionState extends State<TodoDescription> {
   @override
   Widget build(BuildContext context) {
     final goalProvider = Provider.of<TaskProvider>(context);
-    goalProvider.fetchTask();
+    goalProvider.storeLinkedGoal();
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
@@ -30,6 +30,7 @@ class _TodoDescriptionState extends State<TodoDescription> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
         children: [
           const Text('Description:'), //title fomart
           Text(widget.description),
@@ -40,11 +41,12 @@ class _TodoDescriptionState extends State<TodoDescription> {
               shrinkWrap: true,
               itemCount: goalProvider.mySubGoals.length,
               itemBuilder: (context, index) => TODOVIEW(
-                  title: goalProvider.myGoals[index].subGoal![index].title,
-                  description:
-                      goalProvider.myGoals[index].subGoal![index].description,
-                  deadline:
-                      goalProvider.myGoals[index].subGoal![index].deadline),
+                  title: goalProvider.linkedgoal
+                      .elementAt(index)
+                      .subgoals[index]
+                      .title,
+                  description: goalProvider.mySubGoals[index].description,
+                  deadline: goalProvider.mySubGoals[index].deadline),
             ),
           ),
           Center(
@@ -68,16 +70,15 @@ class _TodoDescriptionState extends State<TodoDescription> {
       firstDate: DateTime(1900),
       lastDate: DateTime(2100));
 
+  TextEditingController subGoalTitleController = TextEditingController();
+  TextEditingController subGoalDescriptionController = TextEditingController();
   Future<TimeOfDay?> pickTime() =>
       showTimePicker(context: context, initialTime: TimeOfDay.now());
   openDialog() => showDialog(
         context: context,
         builder: (context) {
           final goalProvider = Provider.of<TaskProvider>(context);
-          TextEditingController subGoalTitleController =
-              TextEditingController();
-          TextEditingController subGoalDescriptionController =
-              TextEditingController();
+          //goalProvider.mySubGoals.clear();
           return AlertDialog(
             title: const Text('ADD goal'),
             content: Column(

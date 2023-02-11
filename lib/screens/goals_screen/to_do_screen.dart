@@ -16,7 +16,7 @@ class _TODOPAGEState extends State<TODOPAGE> {
   Widget build(BuildContext context) {
     final goalProvider = Provider.of<TaskProvider>(context);
     goalProvider.fetchTask();
-
+    //goalProvider.deleteGoal();
     return Scaffold(
       appBar: AppBar(
         title: const Text('ROBBIE\'S PLANNER'),
@@ -48,13 +48,13 @@ class _TODOPAGEState extends State<TODOPAGE> {
 
   Future<TimeOfDay?> pickTime() =>
       showTimePicker(context: context, initialTime: TimeOfDay.now());
+
+  TextEditingController goalTitleController = TextEditingController();
+  TextEditingController goalDescriptionController = TextEditingController();
   openDialog() => showDialog(
         context: context,
         builder: (context) {
           final goalProvider = Provider.of<TaskProvider>(context);
-          TextEditingController goalTitleController = TextEditingController();
-          TextEditingController goalDescriptionController =
-              TextEditingController();
           return AlertDialog(
             title: const Text('ADD goal'),
             content: Column(
