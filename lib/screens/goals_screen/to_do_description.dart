@@ -22,7 +22,7 @@ class _TodoDescriptionState extends State<TodoDescription> {
   @override
   Widget build(BuildContext context) {
     final goalProvider = Provider.of<TaskProvider>(context);
-    goalProvider.storeLinkedGoal();
+    goalProvider.fetchSubtask();
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
@@ -41,10 +41,7 @@ class _TodoDescriptionState extends State<TodoDescription> {
               shrinkWrap: true,
               itemCount: goalProvider.mySubGoals.length,
               itemBuilder: (context, index) => TODOVIEW(
-                  title: goalProvider.linkedgoal
-                      .elementAt(index)
-                      .subgoals[index]
-                      .title,
+                  title: goalProvider.mySubGoals[index].title,
                   description: goalProvider.mySubGoals[index].description,
                   deadline: goalProvider.mySubGoals[index].deadline),
             ),

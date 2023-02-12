@@ -1,5 +1,5 @@
 name: Flutter workflow
- env:
+env:
    FLUTTER_VERSION: "3.x"
    FLUTTER_CHANNEL: "stable"
  

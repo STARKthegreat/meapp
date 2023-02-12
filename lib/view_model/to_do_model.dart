@@ -1,16 +1,16 @@
 //Store the task
 //Update task
 //Check and uncheck task
-import 'dart:collection';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:meapp/models/goal_storage.dart';
 
 class TaskProvider extends ChangeNotifier {
   List<GoalStorage> myGoals = [];
-  List<GoalStorage> mySubGoals = [];
+  List<SubGoal> mySubGoals = [];
   final _box1Name = 'myGoals';
-  final linkedgoal = LinkedList<LinkedGoal>();
+  final _box2Name = 'mySubgoals';
+//try adding another box for subgoals
 
   //Fetch Tasks
   fetchTask() async {
@@ -19,17 +19,21 @@ class TaskProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  storeLinkedGoal() {
-    linkedgoal.addAll([LinkedGoal(myGoals, mySubGoals)]);
+  fetchSubtask() async {
+    Box<SubGoal> box = await Hive.openBox(_box2Name);
+    mySubGoals = box.values.toList().reversed.toList();
+    notifyListeners();
   }
 
   //Store subtaks
   storeSubGoals(
       {required String description,
       required String title,
-      required DateTime deadline}) {
-    mySubGoals.add(GoalStorage(
-        title: title, deadline: deadline, description: description));
+      required DateTime deadline}) async {
+    Box<SubGoal> box = await Hive.openBox(_box2Name);
+    box.add(
+        SubGoal(title: title, description: description, deadline: deadline));
+    mySubGoals = box.values.toList();
     notifyListeners();
   }
 
@@ -39,11 +43,13 @@ class TaskProvider extends ChangeNotifier {
       required String title,
       required DateTime deadline}) async {
     Box<GoalStorage> box = await Hive.openBox(_box1Name);
-    box.add(GoalStorage(
+    box.add(
+      GoalStorage(
         title: title,
         deadline: deadline,
         description: description,
-        subGoal: mySubGoals));
+      ),
+    );
     myGoals = box.values.toList();
     notifyListeners();
   }
@@ -52,17 +58,5 @@ class TaskProvider extends ChangeNotifier {
     Box<GoalStorage> box = await Hive.openBox(_box1Name);
     box.clear();
     notifyListeners();
-  }
-}
-
-class LinkedGoal extends LinkedListEntry<LinkedGoal> {
-  final List<GoalStorage> goals;
-  final List<GoalStorage> subgoals;
-
-  LinkedGoal(this.goals, this.subgoals);
-
-  @override
-  String toString() {
-    return super.toString();
   }
 }

@@ -16,7 +16,6 @@ class _TODOPAGEState extends State<TODOPAGE> {
   Widget build(BuildContext context) {
     final goalProvider = Provider.of<TaskProvider>(context);
     goalProvider.fetchTask();
-    //goalProvider.deleteGoal();
     return Scaffold(
       appBar: AppBar(
         title: const Text('ROBBIE\'S PLANNER'),

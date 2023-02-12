@@ -9,6 +9,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized(); //initialize widget before run app
   await Hive.initFlutter();
   Hive.registerAdapter(GoalStorageAdapter());
+  Hive.registerAdapter(SubGoalAdapter());
   runApp(
     ChangeNotifierProvider(
       create: (_) => TaskProvider(),
