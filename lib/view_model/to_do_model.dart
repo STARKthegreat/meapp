@@ -4,6 +4,7 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:meapp/models/goal_storage.dart';
+import 'package:meapp/models/subgoal.dart';
 
 class TaskProvider extends ChangeNotifier {
   List<GoalStorage> myGoals = [];
@@ -14,14 +15,14 @@ class TaskProvider extends ChangeNotifier {
 
   //Fetch Tasks
   fetchTask() async {
-    Box<GoalStorage> box = await Hive.openBox(_box1Name);
+    Box<GoalStorage> box = await Hive.openBox<GoalStorage>(_box1Name);
     myGoals = box.values.toList().reversed.toList();
+    print(box.keys);
     notifyListeners();
   }
 
   fetchSubtask() async {
-    Box<SubGoal> box = await Hive.openBox(_box2Name);
-    mySubGoals = box.values.toList().reversed.toList();
+    mySubGoals;
     notifyListeners();
   }
 

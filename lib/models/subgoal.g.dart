@@ -1,37 +1,37 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'goal_storage.dart';
+part of 'subgoal.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class GoalStorageAdapter extends TypeAdapter<GoalStorage> {
+class SubGoalAdapter extends TypeAdapter<SubGoal> {
   @override
-  final int typeId = 1;
+  final int typeId = 2;
 
   @override
-  GoalStorage read(BinaryReader reader) {
+  SubGoal read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return GoalStorage(
+    return SubGoal(
       title: fields[0] as String,
-      deadline: fields[2] as DateTime,
       description: fields[1] as String,
+      deadline: fields[3] as DateTime,
     );
   }
 
   @override
-  void write(BinaryWriter writer, GoalStorage obj) {
+  void write(BinaryWriter writer, SubGoal obj) {
     writer
       ..writeByte(3)
       ..writeByte(0)
       ..write(obj.title)
       ..writeByte(1)
       ..write(obj.description)
-      ..writeByte(2)
+      ..writeByte(3)
       ..write(obj.deadline);
   }
 
@@ -41,7 +41,7 @@ class GoalStorageAdapter extends TypeAdapter<GoalStorage> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is GoalStorageAdapter &&
+      other is SubGoalAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

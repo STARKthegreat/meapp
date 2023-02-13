@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:meapp/models/goal_storage.dart';
+import 'package:meapp/models/subgoal.dart';
 import 'package:meapp/view_model/to_do_model.dart';
 import 'package:meapp/screens/goals_screen/to_do_screen.dart';
 import 'package:provider/provider.dart';

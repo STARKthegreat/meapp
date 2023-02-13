@@ -59,11 +59,8 @@ class _TODOVIEWState extends State<TODOVIEW> {
             child: Row(
               children: [
                 ElevatedButton(
-                    onPressed: () async {
-                      final XFile? photoGallery =
-                          await _picker.pickImage(source: ImageSource.gallery);
-                      final XFile? cameraImage =
-                          await _picker.pickImage(source: ImageSource.camera);
+                    onPressed: () {
+                      pickImage();
                     },
                     child: const Text('Upload')),
                 ElevatedButton(
@@ -71,10 +68,17 @@ class _TODOVIEWState extends State<TODOVIEW> {
                     return;
                   },
                   child: const Text('I lied'),
-                )
+                ),
               ],
             ),
           ),
         ),
       );
+
+  void pickImage() async {
+    final XFile? photoGallery =
+        await _picker.pickImage(source: ImageSource.gallery);
+    final XFile? cameraImage =
+        await _picker.pickImage(source: ImageSource.camera);
+  }
 }
