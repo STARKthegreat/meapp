@@ -17,7 +17,7 @@ class TaskProvider extends ChangeNotifier {
   fetchTask() async {
     Box<GoalStorage> box = await Hive.openBox<GoalStorage>(_box1Name);
     myGoals = box.values.toList().reversed.toList();
-    print(box.keys);
+    debugPrint(box.keys.toString());
     notifyListeners();
   }
 
