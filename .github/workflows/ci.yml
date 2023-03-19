@@ -2,8 +2,7 @@ name: Flutter workflow
 env:
    FLUTTER_VERSION: "3.x"
    FLUTTER_CHANNEL: "stable"
- 
- on:
+on:
    pull_request:
    push:
      branches:
