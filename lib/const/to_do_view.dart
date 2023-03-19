@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:meapp/models/goal_storage.dart';
 import 'package:meapp/screens/goals_screen/to_do_description.dart';
 import 'package:meapp/view_model/to_do_model.dart';
 import 'package:provider/provider.dart';
@@ -10,11 +9,13 @@ class TODOVIEW extends StatefulWidget {
   final String title;
   final String description;
   final DateTime deadline;
+  final int index;
   const TODOVIEW({
     super.key,
     required this.title,
     required this.description,
     required this.deadline,
+    required this.index,
   });
 
   @override
@@ -30,7 +31,7 @@ class _TODOVIEWState extends State<TODOVIEW> {
     final goalProvider = Provider.of<TaskProvider>(context);
     return Dismissible(
       key: Key(widget.title),
-      onDismissed: (direction) => goalProvider.deleteGoal(),
+      onDismissed: (direction) => goalProvider.deleteGoal(index: widget.index),
       child: ListTile(
         iconColor: Colors.black,
         textColor: Colors.black,

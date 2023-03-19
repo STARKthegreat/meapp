@@ -41,9 +41,11 @@ class _TodoDescriptionState extends State<TodoDescription> {
               shrinkWrap: true,
               itemCount: goalProvider.mySubGoals.length,
               itemBuilder: (context, index) => TODOVIEW(
-                  title: goalProvider.mySubGoals[index].title,
-                  description: goalProvider.mySubGoals[index].description,
-                  deadline: goalProvider.mySubGoals[index].deadline),
+                title: goalProvider.mySubGoals[index].title,
+                description: goalProvider.mySubGoals[index].description,
+                deadline: goalProvider.mySubGoals[index].deadline,
+                index: index,
+              ),
             ),
           ),
           Center(

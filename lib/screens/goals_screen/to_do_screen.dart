@@ -28,6 +28,7 @@ class _TODOPAGEState extends State<TODOPAGE> {
               title: goalProvider.myGoals[index].title,
               description: goalProvider.myGoals[index].description,
               deadline: goalProvider.myGoals[index].deadline,
+              index: index,
             );
           }),
       floatingActionButton: FloatingActionButton(

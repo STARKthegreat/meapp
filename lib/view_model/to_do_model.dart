@@ -55,9 +55,9 @@ class TaskProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void deleteGoal() async {
+  void deleteGoal({required int index}) async {
     Box<GoalStorage> box = await Hive.openBox(_box1Name);
-    box.clear();
+    box.values.elementAt(index);
     notifyListeners();
   }
 }
