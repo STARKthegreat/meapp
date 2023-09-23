@@ -2,6 +2,7 @@
     "git.ignoreLimitWarning": true,
     "editor.codeActionsOnSave": {
         "source.fixAll": true
-    }
+    },
+    "java.configuration.updateBuildConfiguration": "interactive"
     
 }
