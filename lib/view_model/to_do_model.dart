@@ -22,7 +22,8 @@ class TaskProvider extends ChangeNotifier {
   }
 
   fetchSubtask() async {
-    mySubGoals;
+    Box<SubGoal> box = await Hive.openBox<SubGoal>(_box2Name);
+    mySubGoals = box.values.toList();
     notifyListeners();
   }
 

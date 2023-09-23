@@ -7,11 +7,13 @@ class TodoDescription extends StatefulWidget {
   final String title;
   final String description;
   final DateTime deadline;
+  final Key uniqueKey;
   const TodoDescription(
       {super.key,
       required this.description,
       required this.title,
-      required this.deadline});
+      required this.deadline,
+      required this.uniqueKey});
 
   @override
   State<TodoDescription> createState() => _TodoDescriptionState();

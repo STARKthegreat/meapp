@@ -54,6 +54,7 @@ class _TODOVIEWState extends State<TODOVIEW> {
               title: widget.title,
               description: widget.description,
               deadline: widget.deadline,
+              uniqueKey: Key(widget.title),
             ),
           ),
         ),
