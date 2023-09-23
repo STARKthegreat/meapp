@@ -7,11 +7,13 @@ class TodoDescription extends StatefulWidget {
   final String title;
   final String description;
   final DateTime deadline;
+  final Key uniqueKey;
   const TodoDescription(
       {super.key,
       required this.description,
       required this.title,
-      required this.deadline});
+      required this.deadline,
+      required this.uniqueKey});
 
   @override
   State<TodoDescription> createState() => _TodoDescriptionState();
@@ -22,7 +24,7 @@ class _TodoDescriptionState extends State<TodoDescription> {
   @override
   Widget build(BuildContext context) {
     final goalProvider = Provider.of<TaskProvider>(context);
-    goalProvider.fetchTask();
+    goalProvider.fetchSubtask();
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
@@ -30,21 +32,22 @@ class _TodoDescriptionState extends State<TodoDescription> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
         children: [
           const Text('Description:'), //title fomart
           Text(widget.description),
           Text('Deadline: ${DateTime.now().difference(widget.deadline)}'),
           const Text('Subtasks:'), //Title format
-          Expanded(
+          Flexible(
             child: ListView.builder(
               shrinkWrap: true,
               itemCount: goalProvider.mySubGoals.length,
               itemBuilder: (context, index) => TODOVIEW(
-                  title: goalProvider.myGoals[index].subGoal![index].title,
-                  description:
-                      goalProvider.myGoals[index].subGoal![index].description,
-                  deadline:
-                      goalProvider.myGoals[index].subGoal![index].deadline),
+                title: goalProvider.mySubGoals[index].title,
+                description: goalProvider.mySubGoals[index].description,
+                deadline: goalProvider.mySubGoals[index].deadline,
+                index: index,
+              ),
             ),
           ),
           Center(
@@ -68,16 +71,15 @@ class _TodoDescriptionState extends State<TodoDescription> {
       firstDate: DateTime(1900),
       lastDate: DateTime(2100));
 
+  TextEditingController subGoalTitleController = TextEditingController();
+  TextEditingController subGoalDescriptionController = TextEditingController();
   Future<TimeOfDay?> pickTime() =>
       showTimePicker(context: context, initialTime: TimeOfDay.now());
   openDialog() => showDialog(
         context: context,
         builder: (context) {
           final goalProvider = Provider.of<TaskProvider>(context);
-          TextEditingController subGoalTitleController =
-              TextEditingController();
-          TextEditingController subGoalDescriptionController =
-              TextEditingController();
+          //goalProvider.mySubGoals.clear();
           return AlertDialog(
             title: const Text('ADD goal'),
             content: Column(
