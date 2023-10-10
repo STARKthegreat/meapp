@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:meapp/models/goal_storage.dart';
 import 'package:meapp/models/subgoal.dart';
+import 'package:meapp/screens/home_screen.dart';
+import 'package:meapp/style/app_colors.dart';
 import 'package:meapp/view_model/to_do_model.dart';
-import 'package:meapp/screens/goals_screen/to_do_screen.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
@@ -26,20 +27,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Me App: Productivity Tool',
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
+        textTheme: const TextTheme(
+            displayMedium: TextStyle(overflow: TextOverflow.clip)),
         primarySwatch: Colors.blue,
+        primaryColor: AppColors.primaryColor,
       ),
-      home: const TODOPAGE(),
+      home: const HomeScreen(),
     );
   }
 }
