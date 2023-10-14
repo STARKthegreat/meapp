@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:meapp/screens/goals_screen/to_do_screen.dart';
 import 'package:meapp/screens/why_list_screen.dart';
 import 'package:meapp/style/app_colors.dart';
 import 'package:meapp/widgets/home_welcome_widget.dart';
@@ -25,17 +26,28 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    List onPressed = [
+      () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const TODOPAGE(),
+          ),
+        );
+      },
+      () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const WhyListScreen(),
+          ),
+        );
+      }
+    ];
     final List<Widget> rowChildrenTabs = List.generate(
       _mobileTabTitle.length,
       (index) => MobileListTabWidget(
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const WhyListScreen(),
-            ),
-          );
-        },
+        onPressed: onPressed[index],
         listTabTitle: _mobileTabTitle[index],
       ),
       growable: true,
