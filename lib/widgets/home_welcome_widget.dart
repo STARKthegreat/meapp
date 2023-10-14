@@ -6,16 +6,17 @@ class HomeWelcomeWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.sizeOf(context);
     return Container(
       margin: const EdgeInsets.all(20),
       padding: const EdgeInsets.all(8),
-      width: 300,
-      height: 180,
+      width: size.width,
+      height: size.height * 0.2,
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(10),
       ),
-      child: Row(
+      child: const Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -24,15 +25,22 @@ class HomeWelcomeWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text("Vipi Robbie 👋"),
+              Text("Vipi Robbie 👋"),
               CircleAvatar(
-                radius: 20,
-                child: Image.asset(AppAssets.logo),
+                radius: 30,
+                backgroundImage: AssetImage(AppAssets.logo),
+                // child: ClipRRect(
+                //   borderRadius: BorderRadius.circular(50),
+                //   child: Image.asset(
+                //     AppAssets.logo,
+                //     fit: BoxFit.cover,
+                //   ),
+                // ),
               ),
             ],
           ),
           //Quote Section
-          const Column(
+          Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

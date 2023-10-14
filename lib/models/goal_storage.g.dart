@@ -20,19 +20,22 @@ class GoalStorageAdapter extends TypeAdapter<GoalStorage> {
       title: fields[0] as String,
       deadline: fields[2] as DateTime,
       description: fields[1] as String,
+      subGoals: (fields[3] as List?)?.cast<SubGoal>(),
     );
   }
 
   @override
   void write(BinaryWriter writer, GoalStorage obj) {
     writer
-      ..writeByte(3)
+      ..writeByte(4)
       ..writeByte(0)
       ..write(obj.title)
       ..writeByte(1)
       ..write(obj.description)
       ..writeByte(2)
-      ..write(obj.deadline);
+      ..write(obj.deadline)
+      ..writeByte(3)
+      ..write(obj.subGoals);
   }
 
   @override

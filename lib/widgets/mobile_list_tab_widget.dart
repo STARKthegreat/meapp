@@ -2,15 +2,19 @@ import 'package:flutter/material.dart';
 
 class MobileListTabWidget extends StatelessWidget {
   final String listTabTitle;
-  const MobileListTabWidget({super.key, required this.listTabTitle});
+  final void Function() onPressed;
+  const MobileListTabWidget(
+      {super.key, required this.listTabTitle, required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(10),
+    Size size = MediaQuery.sizeOf(context);
+    return GestureDetector(
+      onTap: onPressed,
       child: Container(
-        width: 80,
-        height: 100,
+        margin: EdgeInsets.all(size.width * 0.06),
+        width: size.width * 0.2,
+        height: size.height * 0.1,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           color: Colors.white,

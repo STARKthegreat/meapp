@@ -1,38 +1,35 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'subgoal.dart';
+part of 'why_list_adapter.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class SubGoalAdapter extends TypeAdapter<SubGoal> {
+class WhyListAdapter extends TypeAdapter<WhyList> {
   @override
-  final int typeId = 2;
+  final int typeId = 3;
 
   @override
-  SubGoal read(BinaryReader reader) {
+  WhyList read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return SubGoal(
+    return WhyList(
       title: fields[0] as String,
       description: fields[1] as String,
-      deadline: fields[3] as DateTime,
     );
   }
 
   @override
-  void write(BinaryWriter writer, SubGoal obj) {
+  void write(BinaryWriter writer, WhyList obj) {
     writer
-      ..writeByte(3)
+      ..writeByte(2)
       ..writeByte(0)
       ..write(obj.title)
       ..writeByte(1)
-      ..write(obj.description)
-      ..writeByte(3)
-      ..write(obj.deadline);
+      ..write(obj.description);
   }
 
   @override
@@ -41,7 +38,7 @@ class SubGoalAdapter extends TypeAdapter<SubGoal> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is SubGoalAdapter &&
+      other is WhyListAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

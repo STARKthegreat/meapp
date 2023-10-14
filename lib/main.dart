@@ -1,20 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:meapp/models/goal_storage.dart';
-import 'package:meapp/models/subgoal.dart';
+import 'package:meapp/models/why_list_adapter.dart';
 import 'package:meapp/screens/home_screen.dart';
 import 'package:meapp/style/app_colors.dart';
 import 'package:meapp/view_model/to_do_model.dart';
+import 'package:meapp/view_model/why_list_model.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized(); //initialize widget before run app
   await Hive.initFlutter();
   Hive.registerAdapter(GoalStorageAdapter());
-  Hive.registerAdapter(SubGoalAdapter());
+  Hive.registerAdapter(WhyListAdapter());
+
   runApp(
-    ChangeNotifierProvider(
-      create: (_) => TaskProvider(),
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => TaskProvider()),
+        ChangeNotifierProvider(create: (_) => WhyListViewModel()),
+      ],
       child: const MyApp(),
     ),
   );
