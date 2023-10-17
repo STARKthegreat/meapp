@@ -4,6 +4,7 @@ import 'package:meapp/models/goal_storage.dart';
 import 'package:meapp/models/why_list_adapter.dart';
 import 'package:meapp/screens/home_screen.dart';
 import 'package:meapp/style/app_colors.dart';
+import 'package:meapp/view_model/home_view_model.dart';
 import 'package:meapp/view_model/to_do_model.dart';
 import 'package:meapp/view_model/why_list_model.dart';
 import 'package:provider/provider.dart';
@@ -19,6 +20,7 @@ void main() async {
       providers: [
         ChangeNotifierProvider(create: (_) => TaskProvider()),
         ChangeNotifierProvider(create: (_) => WhyListViewModel()),
+        ChangeNotifierProvider(create: (_) => HomeViewModel()),
       ],
       child: const MyApp(),
     ),
