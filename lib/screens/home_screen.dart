@@ -15,15 +15,8 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final List<String> _mobileTabTitle = ["To Do List", "My Why"];
-  // final List _onPressedList = [
-  //   () {
-  //     (BuildContext context) {
-  //       Navigator.pushNamed(context, '/todo');
-  //     };
-  //   },
-
-  // ];
-
+  final TextEditingController _titleTextController =
+      TextEditingController(text: "Robbie App");
   @override
   Widget build(BuildContext context) {
     List onPressed = [
@@ -59,9 +52,9 @@ class _HomeScreenState extends State<HomeScreen> {
       backgroundColor: AppColors.primaryColor,
       appBar: AppBar(
         centerTitle: true,
-        title: const Text(
-          "Robbie App",
-          style: TextStyle(
+        title: Text(
+          _titleTextController.text,
+          style: const TextStyle(
             color: Colors.black,
           ),
         ),
