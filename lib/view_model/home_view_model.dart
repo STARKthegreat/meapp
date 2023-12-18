@@ -21,4 +21,11 @@ class HomeViewModel with ChangeNotifier {
 
     return sloganList;
   }
+
+  Future<List<String>> getSloganList(int index, String updatedSlogan) async {
+    Box<String> sloganBox = await Hive.openBox<String>("Slogan");
+    sloganList = sloganBox.values.toList();
+    notifyListeners();
+    return sloganList;
+  }
 }
