@@ -1,5 +1,7 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:meapp/firebase_options.dart';
 import 'package:meapp/models/goal_storage.dart';
 import 'package:meapp/models/why_list_adapter.dart';
 import 'package:meapp/screens/home_screen.dart';
@@ -13,6 +15,10 @@ void main() async {
   await Hive.initFlutter();
   Hive.registerAdapter(GoalStorageAdapter());
   Hive.registerAdapter(WhyListAdapter());
+
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
 
   runApp(
     MultiProvider(

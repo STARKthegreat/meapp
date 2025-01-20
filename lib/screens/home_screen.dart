@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:meapp/screens/goals_screen/to_do_screen.dart';
+import 'package:meapp/screens/practice_screen/my_practice_screen.dart';
 import 'package:meapp/screens/why_list_screen.dart';
 import 'package:meapp/style/app_colors.dart';
 import 'package:meapp/widgets/home_welcome_widget.dart';
@@ -14,7 +15,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final List<String> _mobileTabTitle = ["To Do List", "My Why"];
+  final List<String> _mobileTabTitle = ["To Do List", "My Why", "My Practices"];
   // final List _onPressedList = [
   //   () {
   //     (BuildContext context) {
@@ -40,6 +41,14 @@ class _HomeScreenState extends State<HomeScreen> {
           context,
           MaterialPageRoute(
             builder: (context) => const WhyListScreen(),
+          ),
+        );
+      },
+      () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const MyPracticeScreen(),
           ),
         );
       }

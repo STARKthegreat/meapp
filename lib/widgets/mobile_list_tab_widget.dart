@@ -12,6 +12,7 @@ class MobileListTabWidget extends StatelessWidget {
     return GestureDetector(
       onTap: onPressed,
       child: Container(
+        padding: const EdgeInsets.all(4),
         margin: EdgeInsets.all(size.width * 0.06),
         width: size.width * 0.2,
         height: size.height * 0.1,
@@ -20,11 +21,15 @@ class MobileListTabWidget extends StatelessWidget {
           color: Colors.white,
         ),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             const Icon(Icons.menu),
-            Text(listTabTitle),
+            const Spacer(),
+            Text(
+              listTabTitle,
+              textAlign: TextAlign.center,
+            ),
           ],
         ),
       ),
